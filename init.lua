@@ -107,6 +107,13 @@ require("lazy").setup({
 -- Unmap Ctrl + n (if it's interfering)
 vim.api.nvim_set_keymap("n", "<C-n>", "", { noremap = true, silent = true })
 
+vim.o.clipboard = "unnamedplus"
+
+vim.keymap.set("n", "<leader>y", '"+y')
+vim.keymap.set("v", "<leader>y", '"+y')
+vim.keymap.set("n", "<leader>p", '"+p')
+vim.keymap.set("v", "<leader>p", '"+p')
+
 -- Custom Keybinding for NvimTree Toggle
 vim.keymap.set("n", "<leader>n", ":NvimTreeToggle<CR>", { desc = "Toggle File Explorer" })
 
