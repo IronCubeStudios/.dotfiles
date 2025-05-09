@@ -1,8 +1,8 @@
 -- Pull in the wezterm API
 local wezterm = require 'wezterm'
 
-return {
-  window_background_image = "C:\\Users\\orang\\AppData\\Local\\nvim",
+return {                                -- replace username              download file and put it here
+  window_background_image = "C:\\Users\\<username>\\AppData\\Local\\nvim\bg.png",
   window_background_opacity = 0.90,
   text_background_opacity = 0.6,
   enable_scroll_bar = false,
