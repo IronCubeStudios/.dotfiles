@@ -104,6 +104,12 @@ require("lazy").setup({
 })
 
 -- KEYMAPS
+-- Unmap Ctrl + n (if it's interfering)
+vim.api.nvim_set_keymap("n", "<C-n>", "", { noremap = true, silent = true })
+
+-- Custom Keybinding for NvimTree Toggle
+vim.keymap.set("n", "<leader>n", ":NvimTreeToggle<CR>", { desc = "Toggle File Explorer" })
+
 vim.keymap.set("n", "<leader>sg", function()
   require("telescope").extensions.live_grep_args.live_grep_args()
 end, { desc = "Live Grep with Args" })
