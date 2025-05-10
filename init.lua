@@ -67,6 +67,7 @@ require("lazy").setup({
     {
       "nvim-telescope/telescope.nvim",
       dependencies = {
+        "nvim-lua/plenary.nvim",
         {
           "nvim-telescope/telescope-live-grep-args.nvim",
           version = "^1.0.0",
@@ -74,8 +75,29 @@ require("lazy").setup({
       },
       config = function()
         local telescope = require("telescope")
-        telescope.setup({})
+        telescope.setup({
+          defaults = {
+            mappings = {
+              i = {
+                ["<C-h>"] = "which_key"
+              }
+            }
+          }
+        })
         telescope.load_extension("live_grep_args")
+      end,
+    },
+
+    -- Treesitter
+    {
+      "nvim-treesitter/nvim-treesitter",
+      build = ":TSUpdate",
+      config = function()
+        require("nvim-treesitter.configs").setup({
+          ensure_installed = { "lua", "vim", "javascript", "typescript" },
+          highlight = { enable = true },
+          indent = { enable = true },
+        })
       end,
     },
 
@@ -91,6 +113,50 @@ require("lazy").setup({
         require("nvim-tree").setup({})
       end,
     },
+
+    -- LSP setup (e.g., TypeScript with `tsserver`)
+  {
+    'neovim/nvim-lspconfig',
+    config = function()
+      require('lspconfig').tsserver.setup{}  -- Example for TypeScript
+      vim.diagnostic.config({
+        virtual_text = true,  -- Show error/warning inline
+        signs = true,         -- Show error signs
+        underline = true,     -- Underline errors/warnings
+      })
+    end
+  },
+
+  -- null-ls setup (for additional linters/formatters like ESLint, Prettier)
+  {
+    'jose-elias-alvarez/null-ls.nvim',
+    config = function()
+      local null_ls = require('null-ls')
+      null_ls.setup({
+        sources = {
+          null_ls.builtins.diagnostics.eslint,  -- ESLint for JavaScript
+          null_ls.builtins.formatting.prettier, -- Prettier formatter
+        },
+      })
+    end
+  },
+
+  -- ALE setup (alternative for non-LSP linters)
+  {
+    'dense-analysis/ale',
+    config = function()
+      vim.g.ale_linters = {
+        javascript = {'eslint'},
+        python = {'flake8'},
+      }
+      vim.g.ale_fixers = {
+        javascript = {'prettier'},
+        python = {'black'},
+      }
+      vim.g.ale_lint_on_text_changed = 'always'
+      vim.g.ale_lint_on_insert_leave = 1
+    end
+  },
 
 
   },
