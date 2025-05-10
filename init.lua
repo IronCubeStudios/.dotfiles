@@ -92,14 +92,23 @@ require("lazy").setup({
       "nvim-treesitter/nvim-treesitter",
       build = ":TSUpdate",
       config = function()
+        -- Ensure Python parser is installed
+        local function install_python_parser()
+          local has_python = vim.fn.glob(vim.fn.stdpath("data") .. "/site/pack/packer/start/nvim-treesitter/parser/python.so") ~= ""
+          if not has_python then
+            require("nvim-treesitter.install").compilers = { "gcc" }  -- Ensure you have a working C compiler installed
+            vim.cmd("TSInstall python")  -- Install the Python parser if not already installed
+          end
+        end
+
+        -- Only install Python parser if not installed
+        install_python_parser()
+
         require("nvim-treesitter.configs").setup({
-          ensure_installed = { "lua", "vim", "javascript", "typescript", "python" },  -- Ensure Python parser is included
+          ensure_installed = { "lua", "vim", "javascript", "typescript", "python" },
           highlight = { enable = true },
           indent = { enable = true },
         })
-        -- Ensure Python parser is installed
-        require("nvim-treesitter.install").compilers = { "gcc" }  -- Make sure you have a working C compiler installed
-        vim.cmd("TSInstall python")  -- Install the Python parser if not already installed
       end,
     },
 
@@ -159,6 +168,24 @@ require("lazy").setup({
         vim.g.ale_lint_on_insert_leave = 1
       end
     },
+
+    -- Startify setup
+    {
+      "mhinz/vim-startify",
+      config = function()
+        vim.g.startify_custom_header = {
+          '          ___           ___       ',
+          '         /  /\\         /  /\\      ',
+          '        /  /  \\       /  /  \\     ',
+          '       /  /    \\     /  /    \\    ',
+          '      /  /______\\   /  /______\\   ',
+          '     /  /       /  /  /        /   ',
+          '    /  /       /  /  /        /    ',
+          '   /__/      /__/  /________/     ',
+        }
+      end,
+    },
+
   },
 
   install = {
