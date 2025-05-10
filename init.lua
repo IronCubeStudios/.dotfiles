@@ -50,14 +50,16 @@ require("lazy").setup({
     {
       "supermaven-inc/supermaven-nvim",
       config = function()
-        require("supermaven-nvim").setup({}) 
+        require("supermaven-nvim").setup({})
       end,
     },
 
     -- Comment.nvim
     {
       "numToStr/Comment.nvim",
-      opts = {},
+      opts = {
+        -- options here if needed
+      },
     },
 
     -- Telescope + live grep args
@@ -91,10 +93,13 @@ require("lazy").setup({
       build = ":TSUpdate",
       config = function()
         require("nvim-treesitter.configs").setup({
-          ensure_installed = { "lua", "vim", "javascript", "typescript" },
+          ensure_installed = { "lua", "vim", "javascript", "typescript", "python" },  -- Ensure Python parser is included
           highlight = { enable = true },
           indent = { enable = true },
         })
+        -- Ensure Python parser is installed
+        require("nvim-treesitter.install").compilers = { "gcc" }  -- Make sure you have a working C compiler installed
+        vim.cmd("TSInstall python")  -- Install the Python parser if not already installed
       end,
     },
 
@@ -107,33 +112,19 @@ require("lazy").setup({
         "nvim-tree/nvim-web-devicons",
       },
       config = function()
-        require("nvim-tree").setup({})
+        require("nvim-tree").setup({}) 
       end,
     },
 
-    -- Startify (Custom Start Page)
-    {
-      "mhinz/vim-startify",
-      config = function()
-        vim.g.startify_lists = {
-          { type = 'files', header = {'   Files'} },
-          { type = 'dir', header = {'   Recent directories'} },
-        }
-        vim.g.startify_custom_header = function()
-          return { "Welcome to your Vim setup!" }
-        end
-      end,
-    },
-
-    -- LSP setup (e.g., TypeScript with `tsserver`)
+    -- LSP setup (TypeScript with ts_ls)
     {
       'neovim/nvim-lspconfig',
       config = function()
-        require('lspconfig').tsserver.setup{}  -- Example for TypeScript
+        require('lspconfig').ts_ls.setup{}  -- Using ts_ls instead of tsserver
         vim.diagnostic.config({
-          virtual_text = true,  -- Show error/warning inline
-          signs = true,         -- Show error signs
-          underline = true,     -- Underline errors/warnings
+          virtual_text = true,
+          signs = true,
+          underline = true,
         })
       end
     },
@@ -229,7 +220,6 @@ vim.keymap.set("n", "<F12>", "<cmd>lua vim.lsp.buf.definition()<CR>", { desc = "
 
 -- Rename symbol (F2)
 vim.keymap.set("n", "<F2>", "<cmd>lua vim.lsp.buf.rename()<CR>", { desc = "Rename Symbol" })
-
 
 -- === PLUGIN SPECIFIC SHORTCUTS === --
 
