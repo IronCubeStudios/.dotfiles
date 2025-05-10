@@ -1,4 +1,3 @@
--- BOOTSTRAP lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   local lazyrepo = "https://github.com/folke/lazy.nvim.git"
@@ -51,16 +50,14 @@ require("lazy").setup({
     {
       "supermaven-inc/supermaven-nvim",
       config = function()
-        require("supermaven-nvim").setup({})
+        require("supermaven-nvim").setup({}) 
       end,
     },
 
     -- Comment.nvim
     {
       "numToStr/Comment.nvim",
-      opts = {
-        -- options here if needed
-      },
+      opts = {},
     },
 
     -- Telescope + live grep args
@@ -114,51 +111,63 @@ require("lazy").setup({
       end,
     },
 
+    -- Startify (Custom Start Page)
+    {
+      "mhinz/vim-startify",
+      config = function()
+        vim.g.startify_lists = {
+          { type = 'files', header = {'   Files'} },
+          { type = 'dir', header = {'   Recent directories'} },
+        }
+        vim.g.startify_custom_header = function()
+          return { "Welcome to your Vim setup!" }
+        end
+      end,
+    },
+
     -- LSP setup (e.g., TypeScript with `tsserver`)
-  {
-    'neovim/nvim-lspconfig',
-    config = function()
-      require('lspconfig').tsserver.setup{}  -- Example for TypeScript
-      vim.diagnostic.config({
-        virtual_text = true,  -- Show error/warning inline
-        signs = true,         -- Show error signs
-        underline = true,     -- Underline errors/warnings
-      })
-    end
-  },
+    {
+      'neovim/nvim-lspconfig',
+      config = function()
+        require('lspconfig').tsserver.setup{}  -- Example for TypeScript
+        vim.diagnostic.config({
+          virtual_text = true,  -- Show error/warning inline
+          signs = true,         -- Show error signs
+          underline = true,     -- Underline errors/warnings
+        })
+      end
+    },
 
-  -- null-ls setup (for additional linters/formatters like ESLint, Prettier)
-  {
-    'jose-elias-alvarez/null-ls.nvim',
-    config = function()
-      local null_ls = require('null-ls')
-      null_ls.setup({
-        sources = {
-          null_ls.builtins.diagnostics.eslint,  -- ESLint for JavaScript
-          null_ls.builtins.formatting.prettier, -- Prettier formatter
-        },
-      })
-    end
-  },
+    -- null-ls setup (for additional linters/formatters like ESLint, Prettier)
+    {
+      'jose-elias-alvarez/null-ls.nvim',
+      config = function()
+        local null_ls = require('null-ls')
+        null_ls.setup({
+          sources = {
+            null_ls.builtins.diagnostics.eslint,  -- ESLint for JavaScript
+            null_ls.builtins.formatting.prettier, -- Prettier formatter
+          },
+        })
+      end
+    },
 
-  -- ALE setup (alternative for non-LSP linters)
-  {
-    'dense-analysis/ale',
-    config = function()
-      vim.g.ale_linters = {
-        javascript = {'eslint'},
-        python = {'flake8'},
-      }
-      vim.g.ale_fixers = {
-        javascript = {'prettier'},
-        python = {'black'},
-      }
-      vim.g.ale_lint_on_text_changed = 'always'
-      vim.g.ale_lint_on_insert_leave = 1
-    end
-  },
-
-
+    -- ALE setup (alternative for non-LSP linters)
+    {
+      'dense-analysis/ale',
+      config = function()
+        vim.g.ale_linters = {
+          javascript = {'eslint'},
+          python = {'flake8'},
+        }
+        vim.g.ale_fixers = {
+          javascript = {'prettier'},
+          python = {'black'},
+        }
+        vim.g.ale_lint_on_text_changed = 'always'
+        vim.g.ale_lint_on_insert_leave = 1
+      end
+    },
   },
 
   install = {
@@ -234,7 +243,6 @@ vim.keymap.set("v", "<C-/>", "<esc><cmd>lua require('Comment.api').toggle.linewi
 
 -- Supermaven toggle suggestion (if supported)
 vim.keymap.set("n", "<leader>sm", "<cmd>lua require('supermaven-nvim').toggle()<CR>", { desc = "Toggle Supermaven" })
-
 
 -- === QUALITY OF LIFE === --
 
