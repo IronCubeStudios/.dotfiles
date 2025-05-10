@@ -94,8 +94,9 @@ require("lazy").setup({
       config = function()
         -- Ensure Python parser is installed
         local function install_python_parser()
-          local has_python = vim.fn.glob(vim.fn.stdpath("data") .. "/site/pack/packer/start/nvim-treesitter/parser/python.so") ~= ""
-          if not has_python then
+          local parser_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/nvim-treesitter/parser/python.so"
+          -- Only install if the parser doesn't exist
+          if vim.fn.glob(parser_path) == "" then
             require("nvim-treesitter.install").compilers = { "gcc" }  -- Ensure you have a working C compiler installed
             vim.cmd("TSInstall python")  -- Install the Python parser if not already installed
           end
@@ -174,14 +175,13 @@ require("lazy").setup({
       "mhinz/vim-startify",
       config = function()
         vim.g.startify_custom_header = {
-          '          ___           ___       ',
-          '         /  /\\         /  /\\      ',
-          '        /  /  \\       /  /  \\     ',
-          '       /  /    \\     /  /    \\    ',
-          '      /  /______\\   /  /______\\   ',
-          '     /  /       /  /  /        /   ',
-          '    /  /       /  /  /        /    ',
-          '   /__/      /__/  /________/     ',
+          
+                "   _____________",
+               "   /  _/ ___/ __/",
+              "  _/ // /___\\ \\" , 
+             " /____\\___/___/  ",
+                          
+
         }
       end,
     },
