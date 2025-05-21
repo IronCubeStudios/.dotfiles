@@ -1,4 +1,7 @@
 # Colors (Gruvbox Material Dark Medium)
+[shell]
+program = "/bin/zsh"
+args = ["--login"]
 
 [colors.primary]
 background = "0x282828"
