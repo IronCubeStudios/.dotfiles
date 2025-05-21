@@ -19,4 +19,7 @@ my configs
   curl -o ~/.poshthemes/gruvbox.omp.json https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/gruvbox.omp.json
   ```
   * RESTART
+ 
+  * Wallpaper
+    [![gruvbox-ubuntu.png](https://i.postimg.cc/NFLMjzdK/gruvbox-ubuntu.png)](https://postimg.cc/q6V0mjVr)
 
