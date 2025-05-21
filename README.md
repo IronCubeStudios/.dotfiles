@@ -1,6 +1,8 @@
 # .dotfiles
 my configs
 
+[![dotfiles.png](https://i.postimg.cc/3RkXPn2Z/dotfiles.png)](https://postimg.cc/LYMgPkCq)
+
 * [NEOVIM](init.lua)
   * [shortcuts](https://gist.github.com/IronCubeStudios/d08afe1446e74e9b88d7358089b8ff70)
 * [WEZTERM](wezterm.lua)
