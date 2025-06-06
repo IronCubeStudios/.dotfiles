@@ -22,6 +22,6 @@ my configs
   ```
   * RESTART
  
-  * Wallpaper
+ * Wallpaper
     [![gruvbox-ubuntu.png](https://i.postimg.cc/NFLMjzdK/gruvbox-ubuntu.png)](https://postimg.cc/q6V0mjVr)
-
+    https://www.reddit.com/r/openbsd/comments/mz9qll/after_a_lot_of_requests_i_made_a_openbsd/
